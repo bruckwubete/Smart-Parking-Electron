@@ -1,0 +1,66 @@
+
+  <!-- primary content -->
+
+    <div fxLayout="row" class="component_dashboard">
+      <div  fxLayout="column">
+          <img src="Smart-Parking/frontend/src/assets/images/component_dashboard.jpg" alt="smart parking dashboard image" fxFlexFill>
+      </div>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="center" fxFlexAlign="center" class="parking_lot">
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <md-card fxFlex="75" class="parking_lot_card">
+              <md-card fxLayout="row"  fxFlexFill>
+                <div fxLayout="row" fxLayoutAlign="center" fxFlex="90">
+                    <form class="example-form" fxFlexFill fxLayout="row">
+                      <md-icon>search</md-icon>
+                      <md-input-container fxFlexFill>
+                        <input mdInput placeholder="Search" [(ngModel)] = "searchTerm" (ngModelChange) = "search()" name="sp_search_input">
+                      </md-input-container>
+                    </form>
+                </div>
+
+                <md-button-toggle-group #group="mdButtonToggleGroup" class="sp_no_boxshadow" (change)="toggled()">
+                  <md-button-toggle value="center">
+                    <md-icon>format_align_center</md-icon>
+                  </md-button-toggle>
+                  <md-button-toggle value="right">
+                    <md-icon>format_align_right</md-icon>
+                  </md-button-toggle>
+                </md-button-toggle-group>
+              </md-card>
+              <br>
+
+
+
+                <md-grid-list cols="18" rowHeight="150">
+                  <md-grid-tile></md-grid-tile>
+                  <ng-container *ngFor="let lot of parking_spots; let i = index">
+                    <md-grid-tile colspan="2" [style.background]="getColor(lot)" *ngIf="!lot.reservable">{{lot.name}}</md-grid-tile>
+                  </ng-container>
+                </md-grid-list>
+                <div fxFlex *ngIf="view">
+                  <div fxFlex="12" fxFlexOffset="84">
+                   <md-grid-list cols="1" rowHeight="150" rowspan="1">
+                    <md-grid-tile></md-grid-tile>
+                    <ng-container *ngFor="let lot of parking_spots">
+                    <md-grid-tile (click)="openDialog(lot)"  *ngIf="lot.reservable" [style.background]="getColor(lot)">{{lot.name}}</md-grid-tile>
+                  </ng-container>
+                    <md-grid-tile></md-grid-tile>
+                  </md-grid-list>
+                  </div>
+                </div>
+                <div *ngIf="!view">
+                  <br>
+                  <md-grid-list cols="18" rowHeight="150">
+                    <md-grid-tile></md-grid-tile>
+                    <ng-container *ngFor="let lot of parking_spots; let i = index">
+                      <md-grid-tile  (click)="openDialog(lot)" colspan="2" [style.background]="getColor(lot)" *ngIf="lot.reservable">{{lot.name}}</md-grid-tile>
+                    </ng-container>
+                  </md-grid-list>
+                </div>
+
+
+
+            </md-card>
+        </div>
+    </div>
