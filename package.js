@@ -6,10 +6,10 @@ const argv = require('minimist')(process.argv.slice(2));
 const devDeps = Object.keys(pkg.devDependencies);
 
 const appName = argv.name || pkg.productName;
-const shouldUseAsar = argv.asar || false;
+const shouldUseAsar = argv.asar || true;
 const shouldBuildAll = argv.all || false;
 const arch = argv.arch || 'all';
-const platform = argv.platform || 'darwin';
+const platform = argv.platform || 'win32';
 
 const DEFAULT_OPTS = {
     dir: './src/app',
